@@ -30,7 +30,7 @@ services:
     networks:
       - mern-network
     volumes:
-      - ./api:/usr/app/src
+      - ./api:/usr/app
     depends_on:
       - mongo
     environment:

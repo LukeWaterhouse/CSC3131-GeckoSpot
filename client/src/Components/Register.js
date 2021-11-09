@@ -1,16 +1,20 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import axios from 'axios';
+import UserContext from './UserContext';
 
 function Register() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const user = useContext(UserContext)
+
     function registerUser(e) {
         e.preventDefault();
         const data = {email, password}
-        axios.post('http://localhost:5000/register', data, {withCredentials:true}).then(() => {
+        axios.post('http://localhost:5000/register', data, {withCredentials:true}).then(response => {
             console.log("Posted!")
+            user.setEmail(response.data.email)
         })
     }
 

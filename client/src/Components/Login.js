@@ -6,6 +6,7 @@ function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [loginError, setLoginError] = useState(false)
 
     const user = useContext(UserContext)
 
@@ -15,6 +16,13 @@ function Login() {
         axios.post('http://localhost:5000/login', data, {withCredentials:true}).then(response => {
             console.log("Posted!")
             user.setEmail(response.data.email)
+            setEmail('')
+            setPassword('')
+            setLoginError(false)
+        }).catch(() => {
+            setLoginError(true);
+            
+
         })
     }
 
@@ -22,6 +30,9 @@ function Login() {
         <div>
             <h2>Login</h2>
             <form action="" onSubmit={e => loginUser(e)}>
+                {loginError && (
+                    <div>LOGIN ERROR</div>
+                )}
                 <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)}/><br/>
                 <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)}/><br/>
                 <button type="submit">login</button>

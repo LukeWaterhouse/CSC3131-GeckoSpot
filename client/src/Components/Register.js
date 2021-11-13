@@ -15,6 +15,8 @@ function Register() {
         axios.post('http://localhost:5000/register', data, {withCredentials:true}).then(response => {
             console.log("Posted!")
             user.setEmail(response.data.email)
+            setEmail('')
+            setPassword('')
         })
     }
 

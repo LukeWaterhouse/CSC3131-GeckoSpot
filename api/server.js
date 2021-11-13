@@ -73,6 +73,8 @@ app.post('/login', (req, res) => {
                 }
 
             })
+        } else {
+            res.sendStatus(401);
         }
     })
 })

@@ -57,6 +57,29 @@ app.post('/register', (req, res) => {
 
 });
 
+app.post('/login', (req, res) => {
+    console.log("Logging in!")
+    const {email, password} = req.body;
+    User.findOne({email}).then(userInfo => {
+        const passOk = bcrypt.compareSync(password, userInfo.password);
+        if(passOk) {
+            jwt.sign({id:userInfo._id, email}, secret, (err, token) => {
+                if (err) {
+                    console.log("login error!")
+                    console.log(err);
+                    res.sendStatus(500)
+                } else {
+                    res.cookie('token', token).json({id:userInfo._id, email:userInfo.email});
+                }
+
+            })
+        }
+    })
+})
+
+
+
+
 app.listen(5000, function(){
     console.log("Listening on port 5000");
 })

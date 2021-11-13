@@ -4,6 +4,7 @@ import Register from './Components/Register';
 import UserContext from './Components/UserContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import Login from './Components/Login';
 function App() {
 
   const [email, setEmail] = useState('')
@@ -33,8 +34,8 @@ function App() {
         </div>
 
         <Switch>
-          <Route exact path={'/register'} component={Register}>
-          </Route>
+          <Route exact path={'/register'} component={Register}/>
+          <Route exact path={'/login'} component={Login}/>
         </Switch>
       </BrowserRouter>
       </UserContext.Provider>

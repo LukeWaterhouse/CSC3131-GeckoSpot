@@ -27,6 +27,13 @@ app.get('/', (req, res) => {
     res.send('oks')
 })
 
+app.get('/user', (req, res) => {
+    const payload = jwt.verify(req.cookies.token, secret);
+    User.findById(payload.id).then(userInfo => {
+        res.json({id:userInfo._id, email:userInfo.email});
+    })
+})
+
 app.post('/register', (req, res) => {
 
     console.log("restedring!!!!")

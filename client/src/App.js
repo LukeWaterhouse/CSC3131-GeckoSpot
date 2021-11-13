@@ -2,11 +2,18 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Register from './Components/Register';
 import UserContext from './Components/UserContext';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import axios from 'axios'
 function App() {
 
   const [email, setEmail] = useState('')
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/user', {withCredentials:true}).then(response => {
+      setEmail(response.data.email)
+    })
+
+  }, [])
 
   return (
       <UserContext.Provider value={{email, setEmail}}>

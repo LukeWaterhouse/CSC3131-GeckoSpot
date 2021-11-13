@@ -13,15 +13,23 @@ function App() {
     axios.get('http://localhost:5000/user', {withCredentials:true}).then(response => {
       setEmail(response.data.email)
     })
-
   }, [])
+
+  function logout(){
+    axios.post('http://localhost:5000/logout', {}, {withCredentials:true}).then(() => setEmail(''))
+  }
 
   return (
       <UserContext.Provider value={{email, setEmail}}>
         <BrowserRouter>
         <div>
           {!!email && (
-            <div> Logged in as {email}</div>
+            <div>
+              <button onClick={() => logout()}>Logout</button>
+              <div> Logged in as {email}</div>
+              
+            </div>
+            
           )}
           {!email && (
             <div>Not logged in</div>

@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import UserContext from "./UserContext";
+import '../Css/Register.css'
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -30,13 +31,14 @@ function Register() {
   }
 
   return (
-    <div>
-      <h2>Register</h2>
-      {}
+    <div className="container">
+      <h3>Welcome to GeckoSpot</h3>
+      <h4>Register</h4>
       <form action="" onSubmit={(e) => registerUser(e)}>
           {emailExists && (
-              <div>Email already exists!</div>
+              <div style={{color: 'red' }}>Email already exists!</div>
           )}
+        <div style={{ color: 'white' }}>Email: </div>
         <input
           type="email"
           placeholder="email"
@@ -44,6 +46,8 @@ function Register() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <br />
+
+        <div style={{ color: 'white', paddingTop: '10px' }}>Password</div>
         <input
           type="password"
           placeholder="password"
@@ -51,7 +55,9 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button type="submit">register</button>
+        <div  style={{paddingTop:'20px', display: 'flex', justifyContent: 'center' }}>
+                    <button className="btn-1" type="submit">REGISTER</button>
+                </div>
       </form>
     </div>
   );

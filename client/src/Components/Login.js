@@ -6,7 +6,8 @@ function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loginError, setLoginError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
+    const [emailError, setEmailError] = useState(false)
 
     const user = useContext(UserContext)
 
@@ -14,15 +15,24 @@ function Login() {
         e.preventDefault();
         const data = {email, password}
         axios.post('http://localhost:5000/login', data, {withCredentials:true}).then(response => {
+            console.log(response.data)
             console.log("Posted!")
-            user.setEmail(response.data.email)
+            if(response.data === "noEmail"){
+                setPasswordError(false)
+                setEmailError(true)
+            }else{
+                user.setEmail(response.data.email)
             setEmail('')
             setPassword('')
-            setLoginError(false)
-        }).catch(() => {
-            setLoginError(true);
-            
+            setPasswordError(false)
+            setEmailError(false)
 
+
+            }
+            
+        }).catch(() => {
+            setPasswordError(true);
+            setEmailError(false)
         })
     }
 
@@ -30,8 +40,11 @@ function Login() {
         <div>
             <h2>Login</h2>
             <form action="" onSubmit={e => loginUser(e)}>
-                {loginError && (
-                    <div>LOGIN ERROR</div>
+                {passwordError && (
+                    <div>Password incorrect!</div>
+                )}
+                {emailError && (
+                    <div>Email does not exist!</div>
                 )}
                 <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)}/><br/>
                 <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)}/><br/>

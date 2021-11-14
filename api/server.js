@@ -41,26 +41,35 @@ app.get("/user", (req, res) => {
 
 app.post("/register", (req, res) => {
   console.log("restedring!!!!");
-
   const { email, password } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 10);
-  const user = new User({ password: hashedPassword, email });
-  user.save().then((userInfo) => {
-    console.log(userInfo);
-    jwt.sign(
-      { id: userInfo._id, email: userInfo.email },
-      secret,
-      (err, token) => {
-        if (err) {
-          console.log(err);
-          res.sendStatus(500);
-        } else {
-          res
-            .cookie("token", token)
-            .json({ id: userInfo._id, email: userInfo.email });
-        }
-      }
-    );
+
+
+  User.findOne({ email }).then((userInfo) => {
+    console.log(userInfo)
+    if (userInfo == null) {
+      const hashedPassword = bcrypt.hashSync(password, 10);
+      const user = new User({ password: hashedPassword, email });
+      user.save().then((userInfo) => {
+        console.log(userInfo);
+        jwt.sign(
+          { id: userInfo._id, email: userInfo.email },
+          secret,
+          (err, token) => {
+            if (err) {
+              console.log(err);
+              res.sendStatus(500);
+            } else {
+              res
+                .cookie("token", token)
+                .json({ id: userInfo._id, email: userInfo.email });
+            }
+          }
+        );
+      });
+    }else{
+      console.log("already exists!")
+      res.send("emailExists")
+    }
   });
 });
 

@@ -1,7 +1,8 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import UserContext from "./UserContext";
-import '../Css/Register.css'
+import "../Css/Register.css";
+import { useHistory } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ function Register() {
   const [emailExists, setEmailExists] = useState(false);
 
   const user = useContext(UserContext);
+  let history = useHistory();
 
   function registerUser(e) {
     e.preventDefault();
@@ -16,16 +18,16 @@ function Register() {
     axios
       .post("http://localhost:5000/register", data, { withCredentials: true })
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         if (response.data === "emailExists") {
-            setEmailExists(true);
+          setEmailExists(true);
         } else {
           console.log("Posted!");
           user.setEmail(response.data.email);
           setEmail("");
           setPassword("");
           setEmailExists(false);
-
+          history.push("/homepage");
         }
       });
   }
@@ -35,10 +37,10 @@ function Register() {
       <h3>Welcome to GeckoSpot</h3>
       <h4>Register</h4>
       <form action="" onSubmit={(e) => registerUser(e)}>
-          {emailExists && (
-              <div style={{color: 'red' }}>Email already exists!</div>
-          )}
-        <div style={{ color: 'white' }}>Email: </div>
+        {emailExists && (
+          <div style={{ color: "red" }}>Email already exists!</div>
+        )}
+        <div style={{ color: "white" }}>Email: </div>
         <input
           type="email"
           placeholder="email"
@@ -47,7 +49,7 @@ function Register() {
         />
         <br />
 
-        <div style={{ color: 'white', paddingTop: '10px' }}>Password</div>
+        <div style={{ color: "white", paddingTop: "10px" }}>Password</div>
         <input
           type="password"
           placeholder="password"
@@ -55,9 +57,17 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <div  style={{paddingTop:'20px', display: 'flex', justifyContent: 'center' }}>
-                    <button className="btn-1" type="submit">REGISTER</button>
-                </div>
+        <div
+          style={{
+            paddingTop: "20px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <button className="btn-1" type="submit">
+            REGISTER
+          </button>
+        </div>
       </form>
     </div>
   );

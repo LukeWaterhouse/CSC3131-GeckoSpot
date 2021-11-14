@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import UserContext from "./UserContext";
-import '../Css/Register.css'
-
+import "../Css/Register.css";
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -11,6 +11,7 @@ function Login() {
   const [emailError, setEmailError] = useState(false);
 
   const user = useContext(UserContext);
+  let history = useHistory();
 
   function loginUser(e) {
     e.preventDefault();
@@ -29,6 +30,7 @@ function Login() {
           setPassword("");
           setPasswordError(false);
           setEmailError(false);
+          history.push("/homepage");
         }
       })
       .catch(() => {
@@ -48,7 +50,7 @@ function Login() {
         {emailError && (
           <div style={{ color: "red" }}>Email does not exist!</div>
         )}
-        <div style={{ color: 'white' }}>Email: </div>
+        <div style={{ color: "white" }}>Email: </div>
         <input
           type="email"
           placeholder="email"
@@ -56,7 +58,7 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <br />
-        <div style={{ color: 'white', paddingTop: '10px' }}>Password</div>
+        <div style={{ color: "white", paddingTop: "10px" }}>Password</div>
         <input
           type="password"
           placeholder="password"
@@ -64,9 +66,17 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <div  style={{paddingTop:'20px', display: 'flex', justifyContent: 'center' }}>
-                    <button className="btn-1" type="submit">LOGIN</button>
-                </div>
+        <div
+          style={{
+            paddingTop: "20px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <button className="btn-1" type="submit">
+            LOGIN
+          </button>
+        </div>
       </form>
     </div>
   );

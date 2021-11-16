@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useContext } from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Register from "./Register";
@@ -13,30 +13,39 @@ import "../Css/homepage.css";
 
 
 
+
+
 function HomePage() {
+  const user = useContext(UserContext);
+
   let history = useHistory();
 
-  const [email, setEmail] = useState("");
   const [switchView, setSwitchView] = useState(true);
 
   useEffect(() => {
       axios
         .get("http://localhost:5000/user", { withCredentials: true })
         .then((response) => {
-          setEmail(response.data.email);     
+          user.setEmail(response.data.email);  
+           
         })  
   }, []);
 
 
+  //sends back to entry if trying to access homepage without logging in
   useEffect(()=>{
-    console.log(email)
-  }, [email])
+    console.log(user.email)
+    if(!user.email){
+      history.push("/entry");
+
+    }  
+  }, [user.email])
 
 
   function logout() {
     axios
       .post("http://localhost:5000/logout", {}, { withCredentials: true })
-      .then(() => setEmail(""));
+      .then(() => user.setEmail(""));
 
     history.push("/entry");
   }
@@ -46,7 +55,7 @@ function HomePage() {
     <div className="rootClass">
       <NavigationBar />
       <div>
-        {!!email && (
+        {!!user.email && (
           <div className="row">
             <div className="column">
               <div
@@ -58,7 +67,7 @@ function HomePage() {
                   paddingLeft: "10px",
                 }}
               >
-                Logged in as {email}
+                Logged in as {user.email}
               </div>
             </div>
 
@@ -71,7 +80,7 @@ function HomePage() {
             </div>
           </div>
         )}
-        {!email && <div>Not Logged in</div>}
+        {!user.email && <div>Not Logged in</div>}
       </div>
       Home
     </div>

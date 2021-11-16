@@ -8,3 +8,39 @@
     height: 20px;
 
 }
+
+.grid-container {
+    display: grid;
+  }
+
+  .grid-container {
+    display: inline-grid;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+  }
+
+  .btn-1 {
+    font-size: 15px;
+    background: #354528;
+    border-radius: 0;
+    padding: 10px;
+    border-style: none;
+    color: rgb(233, 233, 233);
+}
+
+.btn-1:hover{
+    background: #415630;
+    transition: 0.4s;
+}

@@ -7,6 +7,7 @@ import axios from "axios";
 import Login from "./Components/Login";
 import Entry from "./Components/Entry";
 import HomePage from "./Components/Homepage";
+import { ProtectedRoute } from "./Components/ProtectedRoute";
 
 function App() {
   const [email, setEmail] = useState("");

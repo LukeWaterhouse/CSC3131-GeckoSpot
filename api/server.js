@@ -6,6 +6,7 @@ import User from "./models/User.js";
 import bcrypt from "bcrypt";
 import cors from "cors";
 import jwt from "jsonwebtoken";
+import Post from "./models/Post.js";
 
 const secret = "secret123";
 
@@ -38,6 +39,39 @@ app.get("/user", (req, res) => {
     res.json({ id: userInfo._id, email: userInfo.email });
   });
 });
+
+
+app.post("/Posts", (req, res) => {
+  console.log("making post")
+  const {userName, date, content} = req.body;
+
+  const post = new Post({userName: userName, date: date, content: content });
+  post.save().then((postInfo) => {
+    console.log(postInfo)
+    res.send("made a post")
+  })
+})
+
+app.get("/Posts", (req, res) => {
+  console.log("getting posts")
+  Post.find({}, function(err, posts) {
+    var postMap = {}
+    posts.forEach(function(post) {
+      postMap[post._id] = post;
+    })
+
+    console.log(postMap)
+
+    res.send(postMap)
+
+  })
+  
+
+})
+
+
+
+
 
 app.post("/register", (req, res) => {
   console.log("restedring!!!!");

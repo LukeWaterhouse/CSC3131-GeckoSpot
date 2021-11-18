@@ -16,6 +16,10 @@ import Post from "./Post";
 function Forum() {
   const user = useContext(UserContext);
 
+  const userName = "Luke";
+  const date = "10/11/21";
+  const content = "blablablablablablabla";
+
   let history = useHistory();
 
   useEffect(() => {
@@ -37,6 +41,26 @@ function Forum() {
       .then(() => user.setEmail(""));
 
     history.push("/entry");
+  }
+
+  function makePost(e) {
+    e.preventDefault();
+    const data = { userName, date, content };
+    axios
+      .post("http://localhost:5000/Posts", data, { withCredentials: true })
+      .then((response) => {
+        console.log(response.data);
+      });
+  }
+
+  function getPosts(e) {
+    e.preventDefault();
+    const data = { userName, date, content };
+    axios
+      .get("http://localhost:5000/Posts", { withCredentials: true })
+      .then((response) => {
+        console.log(response.data);
+      });
   }
 
   return (
@@ -92,6 +116,14 @@ function Forum() {
         date="10/23/21"
         userName="Luke"
       />
+
+      <button className="btn-1" onClick={(e) => makePost(e)}>
+        Post
+      </button>
+
+      <button className="btn-1" onClick={(e) => getPosts(e)}>
+        getPosts
+      </button>
     </div>
   );
 }

@@ -11,28 +11,25 @@ import NavigationBar from "./Navbar";
 import "../Css/homepage.css";
 import ColoredLine from "./Line";
 import EnterPost from "./EnterPost";
+import Post from "./Post";
 
-function HomePage() {
-
-
+function Forum() {
   const user = useContext(UserContext);
-  
-
 
   let history = useHistory();
 
   useEffect(() => {
-      axios
-        .get("http://localhost:5000/user", { withCredentials: true })
-        .then((response) => {
-          user.setEmail(response.data.email);         
-          console.log(response.data.email)             
-        }).catch((error) => {
-          console.log(error)
-          history.push("/entry");
-        });  
+    axios
+      .get("http://localhost:5000/user", { withCredentials: true })
+      .then((response) => {
+        user.setEmail(response.data.email);
+        console.log(response.data.email);
+      })
+      .catch((error) => {
+        console.log(error);
+        history.push("/entry");
+      });
   }, []);
-
 
   function logout() {
     axios
@@ -73,22 +70,30 @@ function HomePage() {
         )}
         {!user.email && <div>Not Logged in</div>}
       </div>
-      <ColoredLine color="white"/>
-      <h1 style={{color: 'white', display: 'flex', justifyContent:'center', paddingTop: '30px', fontWeight: '400' }}><u>Welcome to GeckSpot!</u></h1>
-      <div style={{color: 'white', paddingTop: '30px', marginRight: '15%', marginLeft: '15%' }}>
-      GeckoSpot is an online community of people that love geckos! Check out your profile section 
-      to customize your own gecko avatar. This could be a gecko you own as a pet, or perhaps just a 
-      fantasy gecko that you really like. You can also hop on the forum and discuss your love of geckos 
-      with the rest of the community!
-      </div>
+      <ColoredLine color="white" />
+      <h1
+        style={{
+          color: "white",
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "30px",
+          fontWeight: "400",
+        }}
+      >
+        <u>Forum</u>
+      </h1>
 
-      <div style={{display: 'flex', justifyContent: 'center', paddingTop: '30px'}}>
-      <img src="/GeckoFace.jpeg" alt="" className="img-fluid" style={{zIndex: '1'}}/>
-      </div>
-
-
+      <Post
+        content="orem ipsum dolor sit amet, consectetur adipiscing elit, 
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
+    enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
+    esse cillum dolore eu fugiat nulla pariatur"
+        date="10/23/21"
+        userName="Luke"
+      />
     </div>
   );
 }
 
-export default HomePage;
+export default Forum;

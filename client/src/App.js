@@ -8,9 +8,13 @@ import Login from "./Components/Login";
 import Entry from "./Components/Entry";
 import HomePage from "./Components/Homepage";
 import { ProtectedRoute } from "./Components/ProtectedRoute";
+import Forum from "./Components/Forum";
+
 
 function App() {
   const [email, setEmail] = useState("");
+  const [viewHome, setViewHome] = useState("");
+
 
   useEffect(() => {
     axios
@@ -27,6 +31,8 @@ function App() {
         <Route exact path={"/"} component={Entry} />
           <Route exact path={"/entry"} component={Entry} />
           <Route exact path={"/homepage"} component={HomePage} />
+          <Route exact path={"/forum"} component={Forum} />
+
         </Switch>
       </BrowserRouter>
     </UserContext.Provider>

@@ -9,27 +9,40 @@ function Register() {
   const [password, setPassword] = useState("");
   const [emailExists, setEmailExists] = useState(false);
 
+  const [isFieldBlank, setIsFieldBlank] = useState(false);
+
+
   const user = useContext(UserContext);
   let history = useHistory();
 
   function registerUser(e) {
     e.preventDefault();
-    const data = { email, password };
-    axios
-      .post("http://localhost:5000/register", data, { withCredentials: true })
-      .then((response) => {
-        console.log(response.data);
-        if (response.data === "emailExists") {
-          setEmailExists(true);
-        } else {
-          console.log("Posted!");
-          user.setEmail(response.data.email);
-          setEmail("");
-          setPassword("");
-          setEmailExists(false);
-          history.push("/homepage");
-        }
-      });
+
+    if((email === "") || (password == "")){
+      setIsFieldBlank(true)
+    } else {
+
+      setIsFieldBlank(false)
+
+      const data = { email, password };
+      axios
+        .post("http://localhost:5000/register", data, { withCredentials: true })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data === "emailExists") {
+            setEmailExists(true);
+          } else {
+            console.log("Posted!");
+            user.setEmail(response.data.email);
+            setEmail("");
+            setPassword("");
+            setEmailExists(false);
+            history.push("/homepage");
+          }
+        });
+
+    }
+  
   }
 
   return (
@@ -37,9 +50,13 @@ function Register() {
       <h3>Welcome to GeckoSpot</h3>
       <h4>Register</h4>
       <form action="" onSubmit={(e) => registerUser(e)}>
+        {isFieldBlank && (
+          <div style={{ color: "red" }}>Please fill out both fields!</div>
+        )}
         {emailExists && (
           <div style={{ color: "red" }}>Email already exists!</div>
         )}
+
         <div style={{ color: "white" }}>Email: </div>
         <input
           type="email"

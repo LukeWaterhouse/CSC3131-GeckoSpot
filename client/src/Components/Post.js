@@ -9,17 +9,6 @@ import Typography from "@mui/material/Typography";
 
 function Post(props) {
 
-
-    const bull = (
-        <Box
-          component="span"
-          sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-        >
-          •
-        </Box>
-      );
-
-
   return (
     <div style={{marginRight: '15%', marginLeft: '15%', marginTop: '20px'}}>
       <Box sx={{ minWidth: 275 }}>

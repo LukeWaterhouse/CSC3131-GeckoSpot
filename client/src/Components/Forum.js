@@ -1,26 +1,38 @@
-import { React, useContext } from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
-import Register from "./Register";
+import { React, useContext, useState, useEffect } from "react";
 import UserContext from "./UserContext";
-import { useState, useEffect } from "react";
 import axios from "axios";
-import Login from "./Login";
 import { useHistory } from "react-router-dom";
 import NavigationBar from "./Navbar";
 import "../Css/homepage.css";
 import ColoredLine from "./Line";
-import EnterPost from "./EnterPost";
-import Post from "./Post";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
 
 function Forum() {
   const user = useContext(UserContext);
 
-  const userName = "Luke";
-  const date = "10/11/21";
-  const content = "blablablablablablabla";
+  const [postContent, setPostContent] = useState("");
+
+  const [showPostBlank, setShowPostBlank] = useState(false);
+
+  const [posts, setPosts] = useState([]);
 
   let history = useHistory();
+
+  function handlePostChange(e) {
+    console.log(e.target.value);
+    setPostContent(e.target.value);
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getPosts();
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     axios
@@ -28,6 +40,7 @@ function Forum() {
       .then((response) => {
         user.setEmail(response.data.email);
         console.log(response.data.email);
+        getPosts();
       })
       .catch((error) => {
         console.log(error);
@@ -43,24 +56,80 @@ function Forum() {
     history.push("/entry");
   }
 
-  function makePost(e) {
+  function clearPosts(e) {
     e.preventDefault();
-    const data = { userName, date, content };
+
     axios
-      .post("http://localhost:5000/Posts", data, { withCredentials: true })
+      .delete("http://localhost:5000/Posts", {}, { withCredentials: true })
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
       });
   }
 
-  function getPosts(e) {
+  function makePost(e) {
     e.preventDefault();
-    const data = { userName, date, content };
+
+    if (postContent === "") {
+      setShowPostBlank(true);
+    } else {
+      setShowPostBlank(false);
+      setPostContent("")
+
+      var userName = user.email;
+      const date = new Date().toLocaleString() + "";
+
+      var content = postContent;
+
+      const data = { userName, date, content };
+      axios
+        .post("http://localhost:5000/Posts", data, { withCredentials: true })
+        .then((response) => {
+          console.log(response.data);
+        });
+    }
+  }
+
+  function getPosts() {
+    //e.preventDefault();
     axios
       .get("http://localhost:5000/Posts", { withCredentials: true })
       .then((response) => {
-        console.log(response.data);
+        var list = Object.entries(response.data);
+
+        var listLength = list.length;
+
+        let postList = [];
+
+        for (let i = 0; i < listLength; i++) {
+          var item = Object.entries(list[i]);
+          postList.push(item[1][1]);
+        }
+        setPosts(postList);
       });
+  }
+
+  function Post(props) {
+    return (
+      <div style={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px" }}>
+        <Box sx={{ minWidth: 275 }}>
+          <Card variant="outlined">
+            <CardContent style={{ backgroundColor: "#2C2F33" }}>
+              <Typography sx={{ fontSize: 14 }} color="#97A9B4" gutterBottom>
+                {props.date}
+              </Typography>
+
+              <Typography sx={{ fontSize: 20 }} color="white" gutterBottom>
+                {props.userName}
+              </Typography>
+
+              <Typography variant="body2" color="white">
+                {props.content}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
+      </div>
+    );
   }
 
   return (
@@ -95,6 +164,11 @@ function Forum() {
         {!user.email && <div>Not Logged in</div>}
       </div>
       <ColoredLine color="white" />
+
+      <button style={{ marginTop: '10px', marginLeft: '1.5%'}} className="btn-1" onClick={(e) => clearPosts(e)}>
+        CLEAR POSTS
+      </button>
+
       <h1
         style={{
           color: "white",
@@ -102,27 +176,57 @@ function Forum() {
           justifyContent: "center",
           paddingTop: "30px",
           fontWeight: "400",
+          marginBottom:'20px'
         }}
       >
         <u>Forum</u>
       </h1>
 
-      <Post
-        content="orem ipsum dolor sit amet, consectetur adipiscing elit, 
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
-    enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
-    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
-    esse cillum dolore eu fugiat nulla pariatur"
-        date="10/23/21"
-        userName="Luke"
-      />
+      
 
-      <button className="btn-1" onClick={(e) => makePost(e)}>
+      <div>
+        {posts.map((APost) => (
+          <div style={{ marginBottom: "10px" }}>
+            <Post
+              content={APost.content}
+              date={APost.date}
+              userName={APost.userName}
+            />
+          </div>
+        ))}
+      </div>
+
+      {showPostBlank && (
+        <div
+          style={{
+            marginLeft: "15%",
+            color: "red",
+            paddingTop: "30px",
+            paddingBottom: "10px",
+          }}
+        >
+          Please enter some text before posting!
+        </div>
+      )}
+
+      <div style={{ marginLeft: "15%", marginRight: "15%" }}>
+        <TextField
+          style={{ background: "white", color: "black", width: "100%" }}
+          value={postContent}
+          onChange={handlePostChange}
+          placeholder="Enter post"
+          multiline
+          rows={4}
+          rowsMax={3}
+        />
+      </div>
+
+      <button
+        style={{ marginLeft: "15%", marginTop: "10px", marginBottom: "40px" }}
+        className="btn-1"
+        onClick={(e) => makePost(e)}
+      >
         Post
-      </button>
-
-      <button className="btn-1" onClick={(e) => getPosts(e)}>
-        getPosts
       </button>
     </div>
   );

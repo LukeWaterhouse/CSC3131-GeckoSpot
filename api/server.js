@@ -59,14 +59,15 @@ app.get("/Posts", (req, res) => {
     posts.forEach(function(post) {
       postMap[post._id] = post;
     })
-
-    console.log(postMap)
-
     res.send(postMap)
 
   })
-  
+})
 
+app.delete("/Posts", (req, res) => {
+  Post.remove({}. callback).then((deleteInfo) => {
+    res.send("deleted posts")
+  })
 })
 
 

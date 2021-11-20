@@ -5,10 +5,10 @@ import "../Css/Register.css";
 import { useHistory } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
+  const [userNameError, setUserNameError] = useState(false);
 
   const [isFieldBlank, setIsFieldBlank] = useState(false);
 
@@ -18,33 +18,37 @@ function Login() {
   function loginUser(e) {
     e.preventDefault();
 
-    if (email == "" || password == "") {
+    if (userName == "" || password == "") {
       setIsFieldBlank(true);
+      setPasswordError(false);
+      setUserNameError(false);
+
+
     } else {
       setIsFieldBlank(false);
 
-      const data = { email, password };
+      const data = { userName, password };
       axios
         .post("http://localhost:5000/login", data, { withCredentials: true })
         .then((response) => {
           console.log(response.data);
           console.log("Posted!");
 
-          if (response.data === "noEmail") {
+          if (response.data === "noUserName") {
             setPasswordError(false);
-            setEmailError(true);
+            setUserNameError(true);
           } else {
-            user.setEmail(response.data.email);
-            setEmail("");
+            user.setUserName(response.data.userName);
+            setUserName("");
             setPassword("");
             setPasswordError(false);
-            setEmailError(false);
+            setUserNameError(false);
             history.push("/homepage");
           }
         })
         .catch(() => {
           setPasswordError(true);
-          setEmailError(false);
+          setUserNameError(false);
         });
     }
   }
@@ -61,15 +65,15 @@ function Login() {
         {passwordError && (
           <div style={{ color: "red" }}>Password incorrect!</div>
         )}
-        {emailError && (
-          <div style={{ color: "red" }}>Email does not exist!</div>
+        {userNameError && (
+          <div style={{ color: "red" }}>Username does not exist!</div>
         )}
-        <div style={{ color: "white" }}>Email: </div>
+        <div style={{ color: "white" }}>Username: </div>
         <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Username"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
         />
         <br />
         <div style={{ color: "white", paddingTop: "10px" }}>Password</div>

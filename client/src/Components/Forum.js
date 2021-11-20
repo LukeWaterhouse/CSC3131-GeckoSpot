@@ -38,8 +38,8 @@ function Forum() {
     axios
       .get("http://localhost:5000/user", { withCredentials: true })
       .then((response) => {
-        user.setEmail(response.data.email);
-        console.log(response.data.email);
+        user.setUserName(response.data.userName);
+        console.log(response.data.userName);
         getPosts();
       })
       .catch((error) => {
@@ -51,7 +51,7 @@ function Forum() {
   function logout() {
     axios
       .post("http://localhost:5000/logout", {}, { withCredentials: true })
-      .then(() => user.setEmail(""));
+      .then(() => user.setUserName(""));
 
     history.push("/entry");
   }
@@ -75,7 +75,7 @@ function Forum() {
       setShowPostBlank(false);
       setPostContent("")
 
-      var userName = user.email;
+      var userName = user.userName;
       const date = new Date().toLocaleString() + "";
 
       var content = postContent;
@@ -136,7 +136,7 @@ function Forum() {
     <div className="rootClass">
       <NavigationBar />
       <div>
-        {!!user.email && (
+        {!!user.userName && (
           <div className="row">
             <div className="column">
               <div
@@ -148,7 +148,7 @@ function Forum() {
                   paddingLeft: "10px",
                 }}
               >
-                Logged in as {user.email}
+                Logged in as {user.userName}
               </div>
             </div>
 
@@ -161,7 +161,7 @@ function Forum() {
             </div>
           </div>
         )}
-        {!user.email && <div>Not Logged in</div>}
+        {!user.userName && <div>Not Logged in</div>}
       </div>
       <ColoredLine color="white" />
 

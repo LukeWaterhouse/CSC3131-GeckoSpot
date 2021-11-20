@@ -25,8 +25,8 @@ function HomePage() {
       axios
         .get("http://localhost:5000/user", { withCredentials: true })
         .then((response) => {
-          user.setEmail(response.data.email);         
-          console.log(response.data.email)             
+          user.setUserName(response.data.userName);         
+          console.log(response.data.userName)             
         }).catch((error) => {
           console.log(error)
           history.push("/entry");
@@ -37,7 +37,7 @@ function HomePage() {
   function logout() {
     axios
       .post("http://localhost:5000/logout", {}, { withCredentials: true })
-      .then(() => user.setEmail(""));
+      .then(() => user.setUserName(""));
 
     history.push("/entry");
   }
@@ -46,7 +46,7 @@ function HomePage() {
     <div className="rootClass">
       <NavigationBar />
       <div>
-        {!!user.email && (
+        {!!user.userName && (
           <div className="row">
             <div className="column">
               <div
@@ -58,7 +58,7 @@ function HomePage() {
                   paddingLeft: "10px",
                 }}
               >
-                Logged in as {user.email}
+                Logged in as {user.userName}
               </div>
             </div>
 
@@ -71,7 +71,7 @@ function HomePage() {
             </div>
           </div>
         )}
-        {!user.email && <div>Not Logged in</div>}
+        {!user.userName && <div>Not Logged in</div>}
       </div>
       <ColoredLine color="white"/>
       <h1 style={{color: 'white', display: 'flex', justifyContent:'center', paddingTop: '30px', fontWeight: '400' }}><u>Welcome to GeckSpot!</u></h1>

@@ -5,20 +5,20 @@ import axios from "axios";
 import Login from "./Login";
 
 function Entry() {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [switchView, setSwitchView] = useState(true);
 
   function logout() {
     axios
       .post("http://localhost:5000/logout", {}, { withCredentials: true })
-      .then(() => setEmail(""));
+      .then(() => setUserName(""));
   }
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/user", { withCredentials: true })
       .then((response) => {
-        setEmail(response.data.email);
+        setUserName(response.data.userName);
       });
 
     logout();
@@ -31,7 +31,7 @@ function Entry() {
 
   return (
     <div>
-      <button onClick={() => switchViewFunc()}>Switch</button>
+      <button style={{ marginBottom: "5px" }}onClick={() => switchViewFunc()}><b>Switch</b> Login/Register </button>
       <div>
         {switchView && <Register />}
         {!switchView && <Login />}

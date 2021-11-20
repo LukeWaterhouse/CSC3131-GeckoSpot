@@ -5,9 +5,9 @@ import "../Css/Register.css";
 import { useHistory } from "react-router-dom";
 
 function Register() {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [emailExists, setEmailExists] = useState(false);
+  const [userNameExists, setuserNameExists] = useState(false);
 
   const [isFieldBlank, setIsFieldBlank] = useState(false);
 
@@ -18,25 +18,25 @@ function Register() {
   function registerUser(e) {
     e.preventDefault();
 
-    if((email === "") || (password == "")){
+    if((userName === "") || (password == "")){
       setIsFieldBlank(true)
     } else {
 
       setIsFieldBlank(false)
 
-      const data = { email, password };
+      const data = { userName, password };
       axios
         .post("http://localhost:5000/register", data, { withCredentials: true })
         .then((response) => {
           console.log(response.data);
-          if (response.data === "emailExists") {
-            setEmailExists(true);
+          if (response.data === "userNameExists") {
+            setuserNameExists(true);
           } else {
             console.log("Posted!");
-            user.setEmail(response.data.email);
-            setEmail("");
+            user.setUserName(response.data.userName);
+            setUserName("");
             setPassword("");
-            setEmailExists(false);
+            setuserNameExists(false);
             history.push("/homepage");
           }
         });
@@ -53,16 +53,17 @@ function Register() {
         {isFieldBlank && (
           <div style={{ color: "red" }}>Please fill out both fields!</div>
         )}
-        {emailExists && (
-          <div style={{ color: "red" }}>Email already exists!</div>
+        {userNameExists && (
+          <div style={{ color: "red" }}>Username already exists!</div>
         )}
 
-        <div style={{ color: "white" }}>Email: </div>
+        <div style={{ color: "white" }}>Username: </div>
         <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Username"
+          value={userName}
+          maxlength = "15"
+          onChange={(e) => setUserName(e.target.value)}
         />
         <br />
 
@@ -71,6 +72,7 @@ function Register() {
           type="password"
           placeholder="password"
           value={password}
+          maxlength = "20"
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />

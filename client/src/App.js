@@ -7,25 +7,23 @@ import axios from "axios";
 import Login from "./Components/Login";
 import Entry from "./Components/Entry";
 import HomePage from "./Components/Homepage";
-import { ProtectedRoute } from "./Components/ProtectedRoute";
 import Forum from "./Components/Forum";
 
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [viewHome, setViewHome] = useState("");
+  const [userName, setUserName] = useState("");
 
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/user", { withCredentials: true })
       .then((response) => {
-        setEmail(response.data.email);
+        setUserName(response.data.userName);
       });
   }, []);
 
   return (
-    <UserContext.Provider value={{ email, setEmail }}>
+    <UserContext.Provider value={{ userName, setUserName }}>
       <BrowserRouter>
         <Switch>
         <Route exact path={"/"} component={Entry} />

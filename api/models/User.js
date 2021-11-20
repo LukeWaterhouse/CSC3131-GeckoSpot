@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 var schema = mongoose.Schema({ 
-    email: {type: String, unique:true},
+    userName: {type: String, unique:true},
     password: {type: String}
 })
 

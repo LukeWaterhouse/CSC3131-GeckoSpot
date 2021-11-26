@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the stack
         run: docker-compose up -d
-        
+
       - uses: actions/checkout@v2
         name: Check out code
 
@@ -20,4 +20,3 @@ jobs:
       dockerfile: Dockerfile.ci
       username: ${{ secrets.DOCKER_USERNAME }}
       password: ${{ secrets.DOCKER_PASSWORD }}
-

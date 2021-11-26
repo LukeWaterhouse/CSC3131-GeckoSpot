@@ -10,12 +10,12 @@ import Typography from "@mui/material/Typography";
 function Post(props) {
 
   return (
-    <div style={{marginRight: '15%', marginLeft: '15%', marginTop: '20px'}}>
+    <div data-testid="data-postid" style={{marginRight: '15%', marginLeft: '15%', marginTop: '20px'}}>
       <Box sx={{ minWidth: 275 }}>
         <Card variant="outlined">
           <CardContent style={{backgroundColor: '#2C2F33'}}>
 
-          <Typography
+          <Typography data-testid="data-postdateid"
               sx={{ fontSize: 14 }}
               color="#97A9B4"
               gutterBottom
@@ -23,7 +23,7 @@ function Post(props) {
               {props.date}
             </Typography>
 
-            <Typography
+            <Typography data-testid="data-postusernameid"
               sx={{ fontSize: 20 }}
               color="white"
               gutterBottom
@@ -31,7 +31,7 @@ function Post(props) {
               {props.userName}
             </Typography>
            
-            <Typography variant="body2" color="white">
+            <Typography variant="body2" color="white" data-testid="data-postcontentid">
             {props.content}
              
             </Typography>

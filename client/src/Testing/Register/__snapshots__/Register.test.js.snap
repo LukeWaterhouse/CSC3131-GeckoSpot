@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`register matches snapshot 1`] = `
+<div
+  className="container"
+>
+  <h3>
+    Welcome to GeckoSpot
+  </h3>
+  <h4>
+    Register
+  </h4>
+  <form
+    action=""
+    onSubmit={[Function]}
+  >
+    <div
+      style={
+        Object {
+          "color": "white",
+        }
+      }
+    >
+      Username: 
+    </div>
+    <input
+      maxLength="15"
+      onChange={[Function]}
+      placeholder="Username"
+      type="text"
+      value=""
+    />
+    <br />
+    <div
+      style={
+        Object {
+          "color": "white",
+          "paddingTop": "10px",
+        }
+      }
+    >
+      Password
+    </div>
+    <input
+      maxLength="20"
+      onChange={[Function]}
+      placeholder="password"
+      type="password"
+      value=""
+    />
+    <br />
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "center",
+          "paddingTop": "20px",
+        }
+      }
+    >
+      <button
+        className="btn-1"
+        type="submit"
+      >
+        REGISTER
+      </button>
+    </div>
+  </form>
+</div>
+`;

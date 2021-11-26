@@ -22,8 +22,6 @@ function Login() {
       setIsFieldBlank(true);
       setPasswordError(false);
       setUserNameError(false);
-
-
     } else {
       setIsFieldBlank(false);
 
@@ -58,19 +56,23 @@ function Login() {
       <h3>Welcome to GeckoSpot</h3>
       <h4>Login</h4>
       <form action="" onSubmit={(e) => loginUser(e)}>
-        {isFieldBlank && (
-          <div style={{ color: "red" }}>Please fill out both fields!</div>
-        )}
+        <div>
+          {isFieldBlank && (
+            <div data-testid="data-errorMsgId" style={{ color: "red" }}>Please fill out both fields!</div>
+          )}
 
-        {passwordError && (
-          <div style={{ color: "red" }}>Password incorrect!</div>
-        )}
-        {userNameError && (
-          <div style={{ color: "red" }}>Username does not exist!</div>
-        )}
+          {passwordError && (
+            <div style={{ color: "red" }}>Password incorrect!</div>
+          )}
+          {userNameError && (
+            <div style={{ color: "red" }}>Username does not exist!</div>
+          )}
+        </div>
+
         <div style={{ color: "white" }}>Username: </div>
         <input
           type="text"
+          id="usernameInput"
           placeholder="Username"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
@@ -79,6 +81,7 @@ function Login() {
         <div style={{ color: "white", paddingTop: "10px" }}>Password</div>
         <input
           type="password"
+          id="passwordInput"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -91,7 +94,7 @@ function Login() {
             justifyContent: "center",
           }}
         >
-          <button className="btn-1" type="submit">
+          <button className="btn-1"  type="submit">
             LOGIN
           </button>
         </div>

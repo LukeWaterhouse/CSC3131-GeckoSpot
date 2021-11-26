@@ -9,10 +9,8 @@ import Entry from "./Components/Entry";
 import HomePage from "./Components/Homepage";
 import Forum from "./Components/Forum";
 
-
 function App() {
   const [userName, setUserName] = useState("");
-
 
   useEffect(() => {
     axios
@@ -26,11 +24,10 @@ function App() {
     <UserContext.Provider value={{ userName, setUserName }}>
       <BrowserRouter>
         <Switch>
-        <Route exact path={"/"} component={Entry} />
+          <Route exact path={"/"} component={Entry} />
           <Route exact path={"/entry"} component={Entry} />
           <Route exact path={"/homepage"} component={HomePage} />
           <Route exact path={"/forum"} component={Forum} />
-
         </Switch>
       </BrowserRouter>
     </UserContext.Provider>

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login matches snapshot 1`] = `
+<div
+  className="container"
+>
+  <h3>
+    Welcome to GeckoSpot
+  </h3>
+  <h4>
+    Login
+  </h4>
+  <form
+    action=""
+    onSubmit={[Function]}
+  >
+    <div />
+    <div
+      style={
+        Object {
+          "color": "white",
+        }
+      }
+    >
+      Username: 
+    </div>
+    <input
+      id="usernameInput"
+      onChange={[Function]}
+      placeholder="Username"
+      type="text"
+      value=""
+    />
+    <br />
+    <div
+      style={
+        Object {
+          "color": "white",
+          "paddingTop": "10px",
+        }
+      }
+    >
+      Password
+    </div>
+    <input
+      id="passwordInput"
+      onChange={[Function]}
+      placeholder="password"
+      type="password"
+      value=""
+    />
+    <br />
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "center",
+          "paddingTop": "20px",
+        }
+      }
+    >
+      <button
+        className="btn-1"
+        type="submit"
+      >
+        LOGIN
+      </button>
+    </div>
+  </form>
+</div>
+`;

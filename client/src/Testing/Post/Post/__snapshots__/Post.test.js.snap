@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`post matches snapshot 1`] = `
+<div
+  data-testid="data-postid"
+  style={
+    Object {
+      "marginLeft": "15%",
+      "marginRight": "15%",
+      "marginTop": "20px",
+    }
+  }
+>
+  <div
+    className="MuiBox-root css-12dv9jb"
+  >
+    <div
+      className="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root css-1v5z4dq-MuiPaper-root-MuiCard-root"
+    >
+      <div
+        className="MuiCardContent-root css-46bh2p-MuiCardContent-root"
+        style={
+          Object {
+            "backgroundColor": "#2C2F33",
+          }
+        }
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-1xx61q6-MuiTypography-root"
+          data-testid="data-postdateid"
+        >
+          21/11/25
+        </p>
+        <p
+          className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-1wd83f6-MuiTypography-root"
+          data-testid="data-postusernameid"
+        >
+          Luke
+        </p>
+        <p
+          className="MuiTypography-root MuiTypography-body2 css-3rq6cm-MuiTypography-root"
+          data-testid="data-postcontentid"
+        >
+          content text for testing
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

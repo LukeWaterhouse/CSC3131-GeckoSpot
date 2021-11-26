@@ -62,7 +62,7 @@ function Register() {
           type="text"
           placeholder="Username"
           value={userName}
-          maxlength = "15"
+          maxLength = "15"
           onChange={(e) => setUserName(e.target.value)}
         />
         <br />
@@ -72,7 +72,7 @@ function Register() {
           type="password"
           placeholder="password"
           value={password}
-          maxlength = "20"
+          maxLength = "20"
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />

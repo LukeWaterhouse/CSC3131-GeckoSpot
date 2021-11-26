@@ -11,6 +11,8 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
 
+import { formatPosts } from '../Utilities/utilFunctions'
+
 function Forum() {
   const user = useContext(UserContext);
 
@@ -66,6 +68,8 @@ function Forum() {
       });
   }
 
+
+
   function makePost(e) {
     e.preventDefault();
 
@@ -90,23 +94,17 @@ function Forum() {
   }
 
   function getPosts() {
-    //e.preventDefault();
     axios
       .get("http://localhost:5000/Posts", { withCredentials: true })
       .then((response) => {
-        var list = Object.entries(response.data);
 
-        var listLength = list.length;
-
-        let postList = [];
-
-        for (let i = 0; i < listLength; i++) {
-          var item = Object.entries(list[i]);
-          postList.push(item[1][1]);
-        }
-        setPosts(postList);
+        console.log(typeof(response))
+        setPosts(formatPosts(response));
       });
   }
+
+
+  
 
   function Post(props) {
     return (

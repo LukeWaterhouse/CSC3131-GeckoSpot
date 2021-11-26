@@ -31,7 +31,9 @@ function Entry() {
 
   return (
     <div>
-      <button style={{ marginBottom: "5px" }}onClick={() => switchViewFunc()}><b>Switch</b> Login/Register </button>
+      <button style={{ marginBottom: "5px" }} onClick={() => switchViewFunc()}>
+        <b>Switch</b> Login/Register{" "}
+      </button>
       <div>
         {switchView && <Register />}
         {!switchView && <Login />}

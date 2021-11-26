@@ -58,7 +58,9 @@ function Login() {
       <form action="" onSubmit={(e) => loginUser(e)}>
         <div>
           {isFieldBlank && (
-            <div data-testid="data-errorMsgId" style={{ color: "red" }}>Please fill out both fields!</div>
+            <div data-testid="data-errorMsgId" style={{ color: "red" }}>
+              Please fill out both fields!
+            </div>
           )}
 
           {passwordError && (
@@ -94,7 +96,7 @@ function Login() {
             justifyContent: "center",
           }}
         >
-          <button className="btn-1"  type="submit">
+          <button className="btn-1" type="submit">
             LOGIN
           </button>
         </div>

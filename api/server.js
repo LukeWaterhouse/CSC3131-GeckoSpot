@@ -9,9 +9,7 @@ import Post from "./models/Post.js";
 
 const secret = "secret123";
 
-
-
-//connect to mongoose 
+//connect to mongoose
 await mongoose.connect("mongodb://mongo:27017/auth", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -20,8 +18,6 @@ const db = mongoose.connection;
 
 //console log any database errors
 db.on("error", console.log);
-
-
 
 const app = express();
 app.use(cookieParser());
@@ -46,46 +42,39 @@ app.get("/user", (req, res) => {
   });
 });
 
-
 app.post("/Posts", (req, res) => {
-  console.log("making post")
-  const {userName, date, content} = req.body;
+  console.log("making post");
+  const { userName, date, content } = req.body;
 
-  const post = new Post({userName: userName, date: date, content: content });
+  const post = new Post({ userName: userName, date: date, content: content });
   post.save().then((postInfo) => {
-    console.log(postInfo)
-    res.send("made a post")
-  })
-})
+    console.log(postInfo);
+    res.send("made a post");
+  });
+});
 
 app.get("/Posts", (req, res) => {
-  Post.find({}, function(err, posts) {
-    var postMap = {}
-    posts.forEach(function(post) {
+  Post.find({}, function (err, posts) {
+    var postMap = {};
+    posts.forEach(function (post) {
       postMap[post._id] = post;
-    })
-    res.send(postMap)
-
-  })
-})
+    });
+    res.send(postMap);
+  });
+});
 
 app.delete("/Posts", (req, res) => {
-  Post.remove({}. callback).then((deleteInfo) => {
-    res.send("deleted posts")
-  })
-})
-
-
-
-
+  Post.remove({}.callback).then((deleteInfo) => {
+    res.send("deleted posts");
+  });
+});
 
 app.post("/register", (req, res) => {
   console.log("restedring!!!!");
   const { userName, password } = req.body;
 
-
   User.findOne({ userName }).then((userInfo) => {
-    console.log(userInfo)
+    console.log(userInfo);
     if (userInfo == null) {
       const hashedPassword = bcrypt.hashSync(password, 10);
       const user = new User({ password: hashedPassword, userName });
@@ -106,9 +95,9 @@ app.post("/register", (req, res) => {
           }
         );
       });
-    }else{
-      console.log("already exists!")
-      res.send("userNameExists")
+    } else {
+      console.log("already exists!");
+      res.send("userNameExists");
     }
   });
 });

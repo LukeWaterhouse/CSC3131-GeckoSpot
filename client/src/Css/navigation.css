@@ -1,105 +1,101 @@
 * {
-    box-sizing: border-box
+  box-sizing: border-box;
 }
 
-
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
-    display: flex;
-    align-items: center;
-    background-color: #4e6839;
-    min-height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: #4e6839;
+  min-height: 50px;
 }
 
 .logo {
-    width: 10%;
+  width: 10%;
 }
 
 .navbar-links {
-    padding-right: 8%;
-
+  padding-right: 8%;
 }
 
 .navbar-links ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 
-
 .navbar-links li {
-    list-style: none;
+  list-style: none;
 }
 
 .navbar-links li a {
-    text-decoration: none;
-    color: white;
-    padding: 1rem;
-    display: block;
+  text-decoration: none;
+  color: white;
+  padding: 1rem;
+  display: block;
 }
 
 .navbar-links li:hover {
-    background-color: #6a8057;
-    transition: 0.4s;
+  background-color: #6a8057;
+  transition: 0.4s;
 }
 
 .toggle-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
 }
 
 .toggle-button .bar {
-    height: 3px;
-    width: 100%;
-    background-color: white;
-    border-radius: 10px;
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
 }
 
-@media (max-width:600px) {
-    .toggle-button {
-        display: flex;
-    }
+@media (max-width: 600px) {
+  .toggle-button {
+    display: flex;
+  }
 
-    .navbar-links {
-        display: flex;
-    }
+  .navbar-links {
+    display: flex;
+  }
 
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .navbar-links {
-        padding-right: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    
-    }
+  .navbar-links {
+    padding-right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 
-    .navbar-links ul {
-        flex-direction: column;
-    }
+  .navbar-links ul {
+    flex-direction: column;
+  }
 
-    .navbar-links li a {
-        padding: 0.5rem;
-    }
+  .navbar-links li a {
+    padding: 0.5rem;
+  }
 
-    .navbar-links.active{
-        display: flex;
-    }
+  .navbar-links.active {
+    display: flex;
+  }
 
-    .aboutPadding {
-        padding-top: 14%;
-    }
+  .aboutPadding {
+    padding-top: 14%;
+  }
 }

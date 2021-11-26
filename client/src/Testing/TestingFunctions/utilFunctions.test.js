@@ -1,6 +1,6 @@
 const { formatPosts } = require("../../Utilities/utilFunctions");
 const { easyToTest } = require("../../Utilities/utilFunctions");
-const { getPosts } = require("../../Components/Forum")
+const { getPosts } = require("../../Components/Forum");
 
 import {
   unformattedPosts1,
@@ -27,5 +27,3 @@ test("should output inputted object into the formatted output object expected fr
   //checking data in object gives empty array
   expect(formatPosts(unformattedEmptyPosts)).toStrictEqual([]);
 });
-
-

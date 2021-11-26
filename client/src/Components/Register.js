@@ -11,18 +11,16 @@ function Register() {
 
   const [isFieldBlank, setIsFieldBlank] = useState(false);
 
-
   const user = useContext(UserContext);
   let history = useHistory();
 
   function registerUser(e) {
     e.preventDefault();
 
-    if((userName === "") || (password == "")){
-      setIsFieldBlank(true)
+    if (userName === "" || password == "") {
+      setIsFieldBlank(true);
     } else {
-
-      setIsFieldBlank(false)
+      setIsFieldBlank(false);
 
       const data = { userName, password };
       axios
@@ -40,9 +38,7 @@ function Register() {
             history.push("/homepage");
           }
         });
-
     }
-  
   }
 
   return (
@@ -62,7 +58,7 @@ function Register() {
           type="text"
           placeholder="Username"
           value={userName}
-          maxLength = "15"
+          maxLength="15"
           onChange={(e) => setUserName(e.target.value)}
         />
         <br />
@@ -72,7 +68,7 @@ function Register() {
           type="password"
           placeholder="password"
           value={password}
-          maxLength = "20"
+          maxLength="20"
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />

@@ -11,7 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
 
-import { formatPosts } from '../Utilities/utilFunctions'
+import { formatPosts } from "../Utilities/utilFunctions";
 
 function Forum() {
   const user = useContext(UserContext);
@@ -68,8 +68,6 @@ function Forum() {
       });
   }
 
-
-
   function makePost(e) {
     e.preventDefault();
 
@@ -77,7 +75,7 @@ function Forum() {
       setShowPostBlank(true);
     } else {
       setShowPostBlank(false);
-      setPostContent("")
+      setPostContent("");
 
       var userName = user.userName;
       const date = new Date().toLocaleString() + "";
@@ -97,14 +95,10 @@ function Forum() {
     axios
       .get("http://localhost:5000/Posts", { withCredentials: true })
       .then((response) => {
-
-        console.log(typeof(response))
+        console.log(typeof response);
         setPosts(formatPosts(response));
       });
   }
-
-
-  
 
   function Post(props) {
     return (
@@ -163,7 +157,11 @@ function Forum() {
       </div>
       <ColoredLine color="white" />
 
-      <button style={{ marginTop: '10px', marginLeft: '1.5%'}} className="btn-1" onClick={(e) => clearPosts(e)}>
+      <button
+        style={{ marginTop: "10px", marginLeft: "1.5%" }}
+        className="btn-1"
+        onClick={(e) => clearPosts(e)}
+      >
         CLEAR POSTS
       </button>
 
@@ -174,13 +172,11 @@ function Forum() {
           justifyContent: "center",
           paddingTop: "30px",
           fontWeight: "400",
-          marginBottom:'20px'
+          marginBottom: "20px",
         }}
       >
         <u>Forum</u>
       </h1>
-
-      
 
       <div>
         {posts.map((APost) => (

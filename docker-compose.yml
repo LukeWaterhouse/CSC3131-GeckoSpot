@@ -1,8 +1,7 @@
 version: "3"
 services:
-
   client:
-    build: 
+    build:
       context: ./client
       dockerfile: Dockerfile
     ports:
@@ -20,7 +19,7 @@ services:
     command: npm start
     stdin_open: true
     tty: true
-  
+
   server:
     build:
       context: ./api
@@ -47,7 +46,6 @@ services:
     volumes:
       - ./data:/data/db
     container_name: mongo
-  
 
 networks:
   mern-network:

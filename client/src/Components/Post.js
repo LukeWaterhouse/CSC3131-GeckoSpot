@@ -20,7 +20,6 @@ function Post(props) {
               color="#97A9B4"
               gutterBottom
             >
-              breaking test!
               {props.date}
             </Typography>
 

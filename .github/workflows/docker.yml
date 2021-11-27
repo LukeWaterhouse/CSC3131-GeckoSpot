@@ -34,7 +34,15 @@ jobs:
     
     
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: setup docker build
       - uses: actions/checkout@v2
+      
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+           username: ${{ secrets.DOCKERHUB_USERNAME }}
+           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
 
       # Runs a single command using the runners shell
       - name: Build and Push Docker Images
@@ -42,6 +50,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./client
+          push: true
           dockerfile: ./client/Dockerfile
           image: lukosparta/building-systems
           registry: docker.io

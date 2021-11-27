@@ -2,7 +2,7 @@ FROM node:16.11.1
 
 WORKDIR /usr/app
 
-COPY --from=build package*.json ./
+COPY package*.json ./
 
 RUN npm install -qy
 

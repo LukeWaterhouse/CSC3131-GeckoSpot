@@ -41,7 +41,8 @@ jobs:
 
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          workdir: ./client
+          path: client
+          dockerfile: client/Dockerfile
           image: lukosparta/building-systems
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}

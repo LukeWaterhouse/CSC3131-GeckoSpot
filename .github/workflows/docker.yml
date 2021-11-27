@@ -34,7 +34,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Build and Push Docker Images
 
-        uses: mr-smithers-excellent/docker-build-push@v5
+        uses: docker/build-push-action@v1
         with:
           dockerfile: client/Dockerfile
           image: lukosparta/building-systems

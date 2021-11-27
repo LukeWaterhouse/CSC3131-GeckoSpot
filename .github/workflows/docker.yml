@@ -36,7 +36,8 @@ jobs:
 
         uses: docker/build-push-action@v1
         with:
-          dockerfile: client/Dockerfile
+          context: ./client
+          dockerfile: ./client/Dockerfile
           image: lukosparta/building-systems
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}

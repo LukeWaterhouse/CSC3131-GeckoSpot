@@ -2,6 +2,11 @@
 
 name: CI
 
+
+defaults:
+  run:
+    working-directory: ./client
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -12,9 +17,15 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
+
+
+
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
@@ -27,6 +38,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Build and Push Docker Images
+
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: lukosparta/building-systems
@@ -34,7 +46,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           
-          directory: ./client
 
 
 

@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: build-docker-containers
 
 on:
   # the 1st condition

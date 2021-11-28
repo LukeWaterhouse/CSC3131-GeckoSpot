@@ -6,7 +6,7 @@ name: push-backend-docker-image
 on:
   # the 1st condition
   workflow_run:
-    workflows: ["Testing"]
+    workflows: ["build-docker-containers"]
     branches: [main]
     types:
       - completed

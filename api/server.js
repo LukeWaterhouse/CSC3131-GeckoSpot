@@ -7,6 +7,15 @@ import cors from "cors";
 import jwt from "jsonwebtoken";
 import Post from "./models/Post.js";
 
+const headers = (req, res, next) => {
+	const origin = (req.headers.origin == 'http://localhost:3000') ? 'http://localhost:3000' : 'https://mywebsite.com'
+	res.setHeader('Access-Control-Allow-Origin', origin)
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
+	res.setHeader('Access-Control-Allow-Credentials', true)
+	next()
+}
+
 const secret = "secret123";
 
 //connect to mongoose
@@ -31,18 +40,18 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
+app.get("/",headers, (req, res) => {
   res.send("oks");
 });
 
-app.get("/user", (req, res) => {
+app.get("/user",headers,  (req, res) => {
   const payload = jwt.verify(req.cookies.token, secret);
   User.findById(payload.id).then((userInfo) => {
     res.json({ id: userInfo._id, userName: userInfo.userName });
   });
 });
 
-app.post("/Posts", (req, res) => {
+app.post("/Posts",headers,(req, res) => {
   console.log("making post");
   const { userName, date, content } = req.body;
 
@@ -53,7 +62,7 @@ app.post("/Posts", (req, res) => {
   });
 });
 
-app.get("/Posts", (req, res) => {
+app.get("/Posts",headers, (req, res) => {
   Post.find({}, function (err, posts) {
     var postMap = {};
     posts.forEach(function (post) {
@@ -63,13 +72,13 @@ app.get("/Posts", (req, res) => {
   });
 });
 
-app.delete("/Posts", (req, res) => {
+app.delete("/Posts",headers, (req, res) => {
   Post.remove({}.callback).then((deleteInfo) => {
     res.send("deleted posts");
   });
 });
 
-app.post("/register", (req, res) => {
+app.post("/register",headers, (req, res) => {
   console.log("restedring!!!!");
   const { userName, password } = req.body;
 
@@ -102,7 +111,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.post("/login", (req, res) => {
+app.post("/login",headers, (req, res) => {
   console.log("Logging in!");
   const { userName, password } = req.body;
   User.findOne({ userName }).then((userInfo) => {
@@ -130,7 +139,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.post("/logout", (req, res) => {
+app.post("/logout",headers, (req, res) => {
   res.cookie("token", "").send();
 });
 

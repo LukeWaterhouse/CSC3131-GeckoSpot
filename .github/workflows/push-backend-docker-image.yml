@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: push-backend-docker-image
+name: push-frontend-docker-image
 
 # Controls when the workflow will run
 on:
@@ -25,7 +25,6 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -51,11 +50,10 @@ jobs:
       - name: Build and Push Docker Images
         uses: docker/build-push-action@v2
         with:
-          context: ./api
+          context: ./client
           push: true
-          tags: lukosparta/building-systems:backEnd
-      
-           
+          tags: lukosparta/building-systems:frontEnd
+          
         
 #           context: ./client
 #           push: true

@@ -1,3 +1,4 @@
 # GeckoSpot
 
 AS
+only prod

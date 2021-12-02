@@ -7,10 +7,8 @@ on:
       - '!main'
       - '!master'
 
-
 jobs:
   testing:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,57 +17,54 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
+      - run: npm install
+        working-directory: ./client
 
-    - run: npm install
-      working-directory: ./client
-      
-    - run: npm test
-      working-directory: ./client
-      
-     
+      - run: npm test
+        working-directory: ./client
+
   linting:
-   
-      # Name the Job
-      name: Lint Code Base
-      # Set the agent to run on
-      runs-on: ubuntu-latest
+    # Name the Job
+    name: Lint Code Base
+    # Set the agent to run on
+    runs-on: ubuntu-latest
 
-      ##################
-      # Load all steps #
-      ##################
-      steps:
-        ##########################
-        # Checkout the code base #
-        ##########################
-        - name: Checkout Code
-          uses: actions/checkout@v2
-          with:
-            # Full git history is needed to get a proper list of changed files within `super-linter`
-            fetch-depth: 0
+    ##################
+    # Load all steps #
+    ##################
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
 
-        ################################
-        # Run Linter against code base #
-        ################################
-        - name: Lint Code Base
-          uses: github/super-linter@v4
-          env:
-            VALIDATE_ALL_CODEBASE: true
-            DEFAULT_BRANCH: main
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            FILTER_REGEX_EXCLUDE: .*node_modules/.*
-            
+      ################################
+      # Run Linter against code base #
+      ################################
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: .*node_modules/.*
+
   build:
     needs: testing
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker-compose build
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker-compose build

@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
-var schema = mongoose.Schema({
+const schema = mongoose.Schema({
   userName: { type: String, unique: true },
   password: { type: String }
 })
 
-var User = mongoose.model('User', schema)
+const User = mongoose.model('User', schema)
 
 export default User

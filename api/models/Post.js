@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
-var schema = mongoose.Schema({
+import mongoose from 'mongoose'
+const schema = mongoose.Schema({
   userName: { type: String },
   date: { type: String },
-  content: { type: String },
-});
+  content: { type: String }
+})
 
-var Post = mongoose.model("Post", schema);
+const Post = mongoose.model('Post', schema)
 
-export default Post;
+export default Post

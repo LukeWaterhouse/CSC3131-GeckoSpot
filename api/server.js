@@ -95,7 +95,7 @@ app.post("/register", (req, res) => {
         );
       });
     } else {
-      console.log("already exists!");
+      console.log("user already exists!");
       res.send("userNameExists");
     }
   });

@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: push-frontend-docker-image
+name: push-backend-docker-image
 
 # Controls when the workflow will run
 on:
@@ -50,7 +50,7 @@ jobs:
       - name: Build and Push Docker Images
         uses: docker/build-push-action@v2
         with:
-          context: ./client
+          context: ./api
           push: true
           tags: lukosparta/building-systems:frontEnd
           

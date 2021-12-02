@@ -48,7 +48,7 @@ jobs:
         with:
           context: ./api
           push: true
-          tags: lukosparta/building-systems:frontEnd
+          tags: lukosparta/building-systems:backEnd
           
         
 #           context: ./client

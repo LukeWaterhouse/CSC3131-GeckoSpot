@@ -1,4 +1,3 @@
 # GeckoSpot
 
-AS
-only prod
+ONLY PROD

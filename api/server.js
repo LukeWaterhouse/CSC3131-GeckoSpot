@@ -106,7 +106,7 @@ app.post("/login", (req, res) => {
   const { userName, password } = req.body;
   User.findOne({ userName }).then((userInfo) => {
     if (userInfo == null) {
-      console.log("doesnt exist!");
+      console.log("doesn't exist!");
       res.send("noUserName");
     } else {
       const passOk = bcrypt.compareSync(password, userInfo.password);

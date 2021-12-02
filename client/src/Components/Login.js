@@ -58,7 +58,7 @@ function Login() {
       <form action="" onSubmit={(e) => loginUser(e)}>
         <div>
           {isFieldBlank && (
-            <div data-testid="data-errorMsgId" style={{ color: "red" }}>
+            <div style={{ color: "red" }}>
               Please fill out both fields!
             </div>
           )}

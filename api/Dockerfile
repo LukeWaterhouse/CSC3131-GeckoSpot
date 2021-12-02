@@ -5,4 +5,4 @@ RUN npm install -qyg nodemon@2.0.13
 RUN npm install
 ADD . .
 EXPOSE 3000
-CMD ["nodemon -L ./server.js"]
+CMD ["npm start dev"]

@@ -31,7 +31,7 @@ app.use(
   })
 );
 app.get("/",(req, res) => {
-  res.send("oks");
+  res.send("okasds");
 });
 
 app.get("/user", (req, res) => {
@@ -69,7 +69,7 @@ app.delete("/Posts", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  console.log("restedring!!!!");
+  console.log("Registering!");
   const { userName, password } = req.body;
 
   User.findOne({ userName }).then((userInfo) => {
@@ -134,5 +134,6 @@ app.post("/logout",(req, res) => {
 });
 
 app.listen(5000, function () {
-  console.log("Listening on port 5000");
+  //console.log("Listening on port 5000");
+  console.log("Demonstrating hot reload");
 });

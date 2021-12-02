@@ -17,8 +17,8 @@ services:
       - REACT_APP_SERVER=http://localhost:5000
       - CHOKIDAR_USEPOLLING=true
     command: npm start
-    stdin_open: true
-    tty: true
+    # stdin_open: true
+    # tty: true
 
   server:
     build:

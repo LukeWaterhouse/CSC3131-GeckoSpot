@@ -31,7 +31,7 @@ app.use(
   })
 );
 app.get("/",(req, res) => {
-  res.send("okasds");
+  res.send("okay");
 });
 
 app.get("/user", (req, res) => {

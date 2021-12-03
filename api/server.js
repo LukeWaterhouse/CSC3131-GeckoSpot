@@ -98,7 +98,7 @@ app.post('/register', (req, res) => {
         )
       })
     } else {
-      console.log('user already exists!')
+      console.log('User already exists!')
       res.send('userNameExists')
     }
   })

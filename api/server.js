@@ -9,9 +9,6 @@ import Post from './models/Post.js'
 
 const secret = 'secret123'
 
-
-
-
 //connect to mongoose
 await mongoose.connect('mongodb://mongo:27017/auth', {
   useNewUrlParser: true,
@@ -34,7 +31,7 @@ app.use(
   })
 )
 app.get('/', (req, res) => {
-  res.send('okay')
+  res.send('okasds')
 })
 
 app.get('/user', (req, res) => {

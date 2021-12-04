@@ -1,111 +1,111 @@
-import { React, useContext, useState, useEffect } from 'react'
-import UserContext from './UserContext'
-import axios from 'axios'
-import { useHistory } from 'react-router-dom'
-import NavigationBar from './Navbar'
-import '../Css/homepage.css'
-import ColoredLine from './Line'
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import { TextField } from '@mui/material'
+import { React, useContext, useState, useEffect } from "react";
+import UserContext from "./UserContext";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import NavigationBar from "./Navbar";
+import "../Css/homepage.css";
+import ColoredLine from "./Line";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
 
-import { formatPosts } from '../Utilities/utilFunctions'
+import { formatPosts } from "../Utilities/utilFunctions";
 
 function Forum() {
-  const user = useContext(UserContext)
+  const user = useContext(UserContext);
 
-  const [postContent, setPostContent] = useState('')
+  const [postContent, setPostContent] = useState("");
 
-  const [showPostBlank, setShowPostBlank] = useState(false)
+  const [showPostBlank, setShowPostBlank] = useState(false);
 
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
 
-  let history = useHistory()
+  let history = useHistory();
 
   function handlePostChange(e) {
-    console.log(e.target.value)
-    setPostContent(e.target.value)
+    console.log(e.target.value);
+    setPostContent(e.target.value);
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getPosts()
-    }, 200)
-    return () => clearInterval(interval)
-  }, [])
+      getPosts();
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/user', { withCredentials: true })
+      .get("http://localhost:5000/user", { withCredentials: true })
       .then((response) => {
-        user.setUserName(response.data.userName)
-        console.log(response.data.userName)
-        getPosts()
+        user.setUserName(response.data.userName);
+        console.log(response.data.userName);
+        getPosts();
       })
       .catch((error) => {
-        console.log(error)
-        history.push('/entry')
-      })
-  }, [])
+        console.log(error);
+        history.push("/entry");
+      });
+  }, []);
 
   function logout() {
     axios
-      .post('http://localhost:5000/logout', {}, { withCredentials: true })
-      .then(() => user.setUserName(''))
+      .post("http://localhost:5000/logout", {}, { withCredentials: true })
+      .then(() => user.setUserName(""));
 
-    history.push('/entry')
+    history.push("/entry");
   }
 
   function clearPosts(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     axios
-      .delete('http://localhost:5000/Posts', {}, { withCredentials: true })
+      .delete("http://localhost:5000/Posts", {}, { withCredentials: true })
       .then((response) => {
-        console.log(response)
-      })
+        console.log(response);
+      });
   }
 
   function makePost(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (postContent === '') {
-      setShowPostBlank(true)
+    if (postContent === "") {
+      setShowPostBlank(true);
     } else {
-      setShowPostBlank(false)
-      setPostContent('')
+      setShowPostBlank(false);
+      setPostContent("");
 
-      var userName = user.userName
-      const date = new Date().toLocaleString() + ''
+      var userName = user.userName;
+      const date = new Date().toLocaleString() + "";
 
-      var content = postContent
+      var content = postContent;
 
-      const data = { userName, date, content }
+      const data = { userName, date, content };
       axios
-        .post('http://localhost:5000/Posts', data, { withCredentials: true })
+        .post("http://localhost:5000/Posts", data, { withCredentials: true })
         .then((response) => {
-          console.log(response.data)
-        })
+          console.log(response.data);
+        });
     }
   }
 
   function getPosts() {
     axios
-      .get('http://localhost:5000/Posts', { withCredentials: true })
+      .get("http://localhost:5000/Posts", { withCredentials: true })
       .then((response) => {
-        console.log(typeof response)
-        setPosts(formatPosts(response))
-      })
+        console.log(typeof response);
+        setPosts(formatPosts(response));
+      });
   }
 
   function Post(props) {
     return (
-      <div style={{ marginRight: '15%', marginLeft: '15%', marginTop: '20px' }}>
+      <div style={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px" }}>
         <Box sx={{ minWidth: 275 }}>
           <Card variant="outlined">
-            <CardContent style={{ backgroundColor: '#2C2F33' }}>
+            <CardContent style={{ backgroundColor: "#2C2F33" }}>
               <Typography sx={{ fontSize: 14 }} color="#97A9B4" gutterBottom>
                 {props.date}
               </Typography>
@@ -121,7 +121,7 @@ function Forum() {
           </Card>
         </Box>
       </div>
-    )
+    );
   }
 
   return (
@@ -133,11 +133,11 @@ function Forum() {
             <div className="column">
               <div
                 style={{
-                  color: 'white',
-                  fontSize: '25px',
-                  alignSelf: 'start',
-                  paddingTop: '10px',
-                  paddingLeft: '10px'
+                  color: "white",
+                  fontSize: "25px",
+                  alignSelf: "start",
+                  paddingTop: "10px",
+                  paddingLeft: "10px",
                 }}
               >
                 Logged in as {user.userName}
@@ -145,7 +145,7 @@ function Forum() {
             </div>
 
             <div className="column">
-              <div style={{ alignSelf: 'end', padding: '10px' }}>
+              <div style={{ alignSelf: "end", padding: "10px" }}>
                 <button className="btn-1" onClick={() => logout()}>
                   Logout
                 </button>
@@ -158,7 +158,7 @@ function Forum() {
       <ColoredLine color="white" />
 
       <button
-        style={{ marginTop: '10px', marginLeft: '1.5%' }}
+        style={{ marginTop: "10px", marginLeft: "1.5%" }}
         className="btn-1"
         onClick={(e) => clearPosts(e)}
       >
@@ -167,12 +167,12 @@ function Forum() {
 
       <h1
         style={{
-          color: 'white',
-          display: 'flex',
-          justifyContent: 'center',
-          paddingTop: '30px',
-          fontWeight: '400',
-          marginBottom: '20px'
+          color: "white",
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "30px",
+          fontWeight: "400",
+          marginBottom: "20px",
         }}
       >
         <u>Forum</u>
@@ -180,7 +180,7 @@ function Forum() {
 
       <div>
         {posts.map((APost) => (
-          <div style={{ marginBottom: '10px' }}>
+          <div style={{ marginBottom: "10px" }}>
             <Post
               content={APost.content}
               date={APost.date}
@@ -193,19 +193,19 @@ function Forum() {
       {showPostBlank && (
         <div
           style={{
-            marginLeft: '15%',
-            color: 'red',
-            paddingTop: '30px',
-            paddingBottom: '10px'
+            marginLeft: "15%",
+            color: "red",
+            paddingTop: "30px",
+            paddingBottom: "10px",
           }}
         >
           Please enter some text before posting!
         </div>
       )}
 
-      <div style={{ marginLeft: '15%', marginRight: '15%' }}>
+      <div style={{ marginLeft: "15%", marginRight: "15%" }}>
         <TextField
-          style={{ background: 'white', color: 'black', width: '100%' }}
+          style={{ background: "white", color: "black", width: "100%" }}
           value={postContent}
           onChange={handlePostChange}
           placeholder="Enter post"
@@ -216,14 +216,14 @@ function Forum() {
       </div>
 
       <button
-        style={{ marginLeft: '15%', marginTop: '10px', marginBottom: '40px' }}
+        style={{ marginLeft: "15%", marginTop: "10px", marginBottom: "40px" }}
         className="btn-1"
         onClick={(e) => makePost(e)}
       >
         Post
       </button>
     </div>
-  )
+  );
 }
 
-export default Forum
+export default Forum;

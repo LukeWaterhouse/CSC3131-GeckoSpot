@@ -1,6 +1,6 @@
-import React from 'react'
-import '../Css/postEditor.css'
-import { Form } from 'react-bootstrap'
+import React from "react";
+import "../Css/postEditor.css";
+import { Form } from "react-bootstrap";
 
 function EnterPost() {
   return (
@@ -12,7 +12,7 @@ function EnterPost() {
         </Form.Group>
       </Form>
     </div>
-  )
+  );
 }
 
-export default EnterPost
+export default EnterPost;

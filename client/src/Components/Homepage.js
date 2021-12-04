@@ -1,36 +1,36 @@
-import { React, useContext } from "react";
-import UserContext from "./UserContext";
-import { useEffect } from "react";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import NavigationBar from "./Navbar";
-import "../Css/homepage.css";
-import ColoredLine from "./Line";
+import { React, useContext } from 'react'
+import UserContext from './UserContext'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useHistory } from 'react-router-dom'
+import NavigationBar from './Navbar'
+import '../Css/homepage.css'
+import ColoredLine from './Line'
 
 function HomePage() {
-  const user = useContext(UserContext);
+  const user = useContext(UserContext)
 
-  let history = useHistory();
+  let history = useHistory()
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/user", { withCredentials: true })
+      .get('http://localhost:5000/user', { withCredentials: true })
       .then((response) => {
-        user.setUserName(response.data.userName);
-        console.log(response.data.userName);
+        user.setUserName(response.data.userName)
+        console.log(response.data.userName)
       })
       .catch((error) => {
-        console.log(error);
-        history.push("/entry");
-      });
-  }, []);
+        console.log(error)
+        history.push('/entry')
+      })
+  }, [])
 
   function logout() {
     axios
-      .post("http://localhost:5000/logout", {}, { withCredentials: true })
-      .then(() => user.setUserName(""));
+      .post('http://localhost:5000/logout', {}, { withCredentials: true })
+      .then(() => user.setUserName(''))
 
-    history.push("/entry");
+    history.push('/entry')
   }
 
   return (
@@ -42,11 +42,11 @@ function HomePage() {
             <div className="column">
               <div
                 style={{
-                  color: "white",
-                  fontSize: "25px",
-                  alignSelf: "start",
-                  paddingTop: "10px",
-                  paddingLeft: "10px",
+                  color: 'white',
+                  fontSize: '25px',
+                  alignSelf: 'start',
+                  paddingTop: '10px',
+                  paddingLeft: '10px'
                 }}
               >
                 Logged in as {user.userName}
@@ -54,7 +54,7 @@ function HomePage() {
             </div>
 
             <div className="column">
-              <div style={{ alignSelf: "end", padding: "10px" }}>
+              <div style={{ alignSelf: 'end', padding: '10px' }}>
                 <button className="btn-1" onClick={() => logout()}>
                   Logout
                 </button>
@@ -67,21 +67,21 @@ function HomePage() {
       <ColoredLine color="white" />
       <h1
         style={{
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          paddingTop: "30px",
-          fontWeight: "400",
+          color: 'white',
+          display: 'flex',
+          justifyContent: 'center',
+          paddingTop: '30px',
+          fontWeight: '400'
         }}
       >
         <u>Welcome to GeckSpot!</u>
       </h1>
       <div
         style={{
-          color: "white",
-          paddingTop: "30px",
-          marginRight: "15%",
-          marginLeft: "15%",
+          color: 'white',
+          paddingTop: '30px',
+          marginRight: '15%',
+          marginLeft: '15%'
         }}
       >
         GeckoSpot is an online community of people that love geckos! Check out
@@ -93,20 +93,20 @@ function HomePage() {
 
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          paddingTop: "30px",
+          display: 'flex',
+          justifyContent: 'center',
+          paddingTop: '30px'
         }}
       >
         <img
           src="/GeckoFace.jpeg"
           alt=""
           className="img-fluid"
-          style={{ zIndex: "1" }}
+          style={{ zIndex: '1' }}
         />
       </div>
     </div>
-  );
+  )
 }
 
-export default HomePage;
+export default HomePage

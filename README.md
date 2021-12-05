@@ -38,4 +38,4 @@ if you have made changes/additions and would like to format the code consistentl
 ```
 prettier --write .
 ```
-this will use the .pretterrc to format all files
+this uses the .pretterrc to format all files

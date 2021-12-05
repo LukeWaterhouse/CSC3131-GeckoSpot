@@ -24,16 +24,20 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+//handles cross policy origin
 app.use(
   cors({
     credentials: true,
     origin: 'http://localhost:3000'
   })
 )
+
+//test endpoint
 app.get('/', (req, res) => {
   res.send('okasds')
 })
 
+//verifies webtoken in cookie and sends user info back
 app.get('/user', (req, res) => {
   const payload = jwt.verify(req.cookies.token, secret)
   User.findById(payload.id).then((userInfo) => {
@@ -41,6 +45,7 @@ app.get('/user', (req, res) => {
   })
 })
 
+//Adds new post to database
 app.post('/Posts', (req, res) => {
   console.log('making postd')
   const { userName, date, content } = req.body
@@ -52,6 +57,7 @@ app.post('/Posts', (req, res) => {
   })
 })
 
+//returns all posts from database
 app.get('/Posts', (req, res) => {
   Post.find({}, function (err, posts) {
     var postMap = {}
@@ -62,23 +68,29 @@ app.get('/Posts', (req, res) => {
   })
 })
 
+//deletes all posts in database
 app.delete('/Posts', (req, res) => {
   Post.remove({}.callback).then((deleteInfo) => {
     res.send('deleted posts')
   })
 })
 
+//Registers a new user
 app.post('/register', (req, res) => {
   console.log('Registering!')
+
+  //destructures request body
   const { userName, password } = req.body
 
   User.findOne({ userName }).then((userInfo) => {
     console.log(userInfo)
     if (userInfo == null) {
+      //if no user yet hashes password and stores in database
       const hashedPassword = bcrypt.hashSync(password, 10)
       const user = new User({ password: hashedPassword, userName })
       user.save().then((userInfo) => {
         console.log(userInfo)
+        //sign webtoken with user info to send to client
         jwt.sign(
           { id: userInfo._id, userName: userInfo.userName },
           secret,
@@ -96,21 +108,27 @@ app.post('/register', (req, res) => {
       })
     } else {
       console.log('user already exists!')
+      //notify client user exists already
       res.send('userNameExists')
     }
   })
 })
 
+//Logs in user
 app.post('/login', (req, res) => {
   console.log('Logging in!')
   const { userName, password } = req.body
+
   User.findOne({ userName }).then((userInfo) => {
     if (userInfo == null) {
+      //if user doesn't exist notify client
       console.log("doesn't exist!")
       res.send('noUserName')
     } else {
+      //compare encrypted passwords
       const passOk = bcrypt.compareSync(password, userInfo.password)
       if (passOk) {
+        //if the same sign webtoken and send to front end in cookie
         jwt.sign({ id: userInfo._id, userName }, secret, (err, token) => {
           if (err) {
             console.log('login error!')
@@ -129,11 +147,11 @@ app.post('/login', (req, res) => {
   })
 })
 
+//logs user out by removing cookie information
 app.post('/logout', (req, res) => {
   res.cookie('token', '').send()
 })
 
 app.listen(5000, function () {
-  //console.log("Listening on port 5000");
   console.log('Demonstrating hot reload')
 })

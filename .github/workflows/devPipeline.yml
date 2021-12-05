@@ -1,5 +1,7 @@
 name: Development-Pipeline
 
+
+#Development pipeline, runs on everything except main or master
 on:
   push:
     branches:
@@ -8,13 +10,14 @@ on:
       - '!master'
 
 jobs:
+
+ # runs tests using the npm script defined in my package.json
   testing:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v2
@@ -29,28 +32,19 @@ jobs:
       - run: npm test
         working-directory: ./client
 
+
+  #uses a super linter to check for good practice in codebase for newly changed files
   linting:
-    # Name the Job
     name: Lint Code Base
-    # Set the agent to run on
     runs-on: ubuntu-latest
 
-    ##################
-    # Load all steps #
-    ##################
     steps:
-      ##########################
-      # Checkout the code base #
-      ##########################
+  
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
 
-      ################################
-      # Run Linter against code base #
-      ################################
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
@@ -59,6 +53,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILTER_REGEX_EXCLUDE: .*node_modules/.*
 
+
+  #uses the dockerfiles in the project and dockercompose to make sure docker containers can all build correctly (as long as tests pass)
   build:
     needs: testing
 

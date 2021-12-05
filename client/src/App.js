@@ -20,6 +20,8 @@ function App() {
       })
   }, [])
 
+  //using context to globally access and change usename
+
   return (
     <UserContext.Provider value={{ userName, setUserName }}>
       <BrowserRouter>

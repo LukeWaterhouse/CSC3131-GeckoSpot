@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Login from './Login'
 
+
+
 function Entry() {
   const [userName, setUserName] = useState('')
   const [switchView, setSwitchView] = useState(true)
@@ -15,6 +17,7 @@ function Entry() {
   }
 
   useEffect(() => {
+    //ensures the user is logged out on entry page
     axios
       .get('http://localhost:5000/user', { withCredentials: true })
       .then((response) => {
@@ -25,6 +28,7 @@ function Entry() {
   }, [])
 
   function switchViewFunc() {
+    //conditionally renders either Login or Register button based on button click
     let currentView = switchView
     setSwitchView(!currentView)
   }

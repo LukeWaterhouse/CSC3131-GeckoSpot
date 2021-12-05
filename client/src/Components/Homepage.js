@@ -13,6 +13,7 @@ function HomePage() {
   let history = useHistory()
 
   useEffect(() => {
+    //ensures the user is verified using web token, if not push them back to entry page (where they are logged out)
     axios
       .get('http://localhost:5000/user', { withCredentials: true })
       .then((response) => {

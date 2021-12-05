@@ -15,13 +15,9 @@ import { formatPosts } from '../Utilities/utilFunctions'
 
 function Forum() {
   const user = useContext(UserContext)
-
   const [postContent, setPostContent] = useState('')
-
   const [showPostBlank, setShowPostBlank] = useState(false)
-
   const [posts, setPosts] = useState([])
-
   let history = useHistory()
 
   function handlePostChange(e) {
@@ -30,6 +26,7 @@ function Forum() {
   }
 
   useEffect(() => {
+    //gets new posts on a short time interval to ensure they are up to date
     const interval = setInterval(() => {
       getPosts()
     }, 200)
@@ -37,6 +34,7 @@ function Forum() {
   }, [])
 
   useEffect(() => {
+    //ensures the user is verified using web token, if not push them back to entry page (where they are logged out)
     axios
       .get('http://localhost:5000/user', { withCredentials: true })
       .then((response) => {
@@ -61,6 +59,7 @@ function Forum() {
   function clearPosts(e) {
     e.preventDefault()
 
+    //clears the posts by sending request, they will disspear automatically due to interval update
     axios
       .delete('http://localhost:5000/Posts', {}, { withCredentials: true })
       .then((response) => {
@@ -71,17 +70,20 @@ function Forum() {
   function makePost(e) {
     e.preventDefault()
 
+    //shows error on blank post
     if (postContent === '') {
       setShowPostBlank(true)
     } else {
       setShowPostBlank(false)
       setPostContent('')
 
+      //gets the current date and sets name and content variables
       var userName = user.userName
       const date = new Date().toLocaleString() + ''
-
       var content = postContent
 
+
+      //sends data to backend api then database
       const data = { userName, date, content }
       axios
         .post('http://localhost:5000/Posts', data, { withCredentials: true })
@@ -92,6 +94,9 @@ function Forum() {
   }
 
   function getPosts() {
+
+    //function for getting posts from db using request
+    //these are formatted by a function and then the state is set for mapping
     axios
       .get('http://localhost:5000/Posts', { withCredentials: true })
       .then((response) => {

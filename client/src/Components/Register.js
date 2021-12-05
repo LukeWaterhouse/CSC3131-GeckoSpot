@@ -17,11 +17,13 @@ function Register() {
   function registerUser(e) {
     e.preventDefault()
 
+    //sets error message if register fields are blank
     if (userName === '' || password == '') {
       setIsFieldBlank(true)
     } else {
       setIsFieldBlank(false)
 
+      //sends request to backend to store new user if they don't exist
       const data = { userName, password }
       axios
         .post('http://localhost:5000/register', data, { withCredentials: true })

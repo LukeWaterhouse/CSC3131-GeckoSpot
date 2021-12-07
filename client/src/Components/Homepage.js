@@ -85,10 +85,9 @@ function HomePage() {
           marginLeft: '15%'
         }}
       >
-        GeckoSpot is an online community of people that love geckos! Check out
-        your profile section to customize your own gecko avatar. This could be a
-        gecko you own as a pet, or perhaps just a fantasy gecko that you really
-        like. You can also hop on the forum and discuss your love of geckos with
+        GeckoSpot is an online community of people that love geckos! Now you have 
+        logged into our secure site you can take advantage of all the cool features!.
+        You can also hop on the forum and discuss your love of geckos with
         the rest of the community!
       </div>
 

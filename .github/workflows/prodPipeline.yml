@@ -90,7 +90,7 @@ jobs:
 
 
 
-  #if docker containers build correctly push backend image to dockerhub 
+  #if docker containers build correctly push frontend image to dockerhub 
   push-frontend:
     needs: build
     runs-on: ubuntu-latest

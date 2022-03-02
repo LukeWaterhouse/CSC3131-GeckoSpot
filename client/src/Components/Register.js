@@ -45,7 +45,7 @@ function Register() {
 
   return (
     <div className="container">
-      <h3>Welcome to GeckoSpot</h3>
+      <h3>Welcome to Data House</h3>
       <h4>Register</h4>
       <form action="" onSubmit={(e) => registerUser(e)}>
         {isFieldBlank && (

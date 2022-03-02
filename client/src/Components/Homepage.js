@@ -75,7 +75,7 @@ function HomePage() {
           fontWeight: '400'
         }}
       >
-        <u>Welcome to GeckSpot!</u>
+        <u>Data Center</u>
       </h1>
       <div
         style={{
@@ -98,12 +98,7 @@ function HomePage() {
           paddingTop: '30px'
         }}
       >
-        <img
-          src="/GeckoFace.jpeg"
-          alt=""
-          className="img-fluid"
-          style={{ zIndex: '1' }}
-        />
+
       </div>
     </div>
   )

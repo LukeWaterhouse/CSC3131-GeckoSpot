@@ -47,13 +47,13 @@ app.get('/user', (req, res) => {
 
 //Adds new post to database
 app.post('/Posts', (req, res) => {
-  console.log('making postd')
+  console.log('making post reload?')
   const { userName, date, content } = req.body
 
   const post = new Post({ userName: userName, date: date, content: content })
   post.save().then((postInfo) => {
     console.log(postInfo)
-    res.send('made a post')
+    res.send('made a post reload?')
   })
 })
 
